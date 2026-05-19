@@ -1,15 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Metadata } from "next";
 
-const Reveal = ({ children, delay = 0 }) => (
+const Reveal = ({
+    children,
+    delay = 0,
+}: {
+    children: ReactNode;
+    delay?: number;
+}) => (
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false }}
-        transition={{ duration: 0.6, delay, ease: "easeOut" }}
+        transition={{
+            duration: 0.6,
+            delay,
+            ease: "easeOut",
+        }}
     >
         {children}
     </motion.div>
@@ -21,7 +31,17 @@ export const metadata: Metadata = {
     robots: "index,follow"
 };
 
-const ServiceDetails = ({ intro, details }) => {
+const ServiceDetails = ({
+    intro,
+    details,
+}: {
+    intro: string;
+
+    details: {
+        label: string;
+        desc: string;
+    }[];
+}) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const initialLimit = 2;
     const hasMore = details.length > initialLimit;

@@ -1,167 +1,263 @@
+"use client";
+
 import { useEffect } from "react";
 
 export default function InsaneCursor() {
-  useEffect(() => {
-    const dot = document.querySelector(".cursor-dot");
-    const circle = document.querySelector(".cursor-circle");
+    useEffect(() => {
+        // Disable on mobile
+        if (window.innerWidth < 768) return;
 
-    let mouseX = 0;
-    let mouseY = 0;
-    let posX = 0;
-    let posY = 0;
-    let velocity = 0;
+        const dot = document.querySelector(
+            ".cursor-dot"
+        ) as HTMLDivElement | null;
 
-    // Track mouse
-    const move = (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    };
+        const circle = document.querySelector(
+            ".cursor-circle"
+        ) as HTMLDivElement | null;
 
-    document.addEventListener("mousemove", move);
+        if (!dot || !circle) return;
 
-    // Smooth physics animation
-    const animate = () => {
-      const dx = mouseX - posX;
-      const dy = mouseY - posY;
+        let mouseX = 0;
+        let mouseY = 0;
 
-      posX += dx * 0.15;
-      posY += dy * 0.15;
+        let posX = 0;
+        let posY = 0;
 
-      velocity = Math.sqrt(dx * dx + dy * dy);
+        let velocity = 0;
 
-      // Move circle
-      circle.style.left = posX + "px";
-      circle.style.top = posY + "px";
+        // Mouse tracking
+        const move = (e: MouseEvent) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        };
 
-      // Move dot instantly
-      dot.style.left = mouseX + "px";
-      dot.style.top = mouseY + "px";
+        document.addEventListener("mousemove", move);
 
-      // Dynamic scale based on speed
-      const scale = Math.min(1 + velocity / 100, 2);
-      circle.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        // Animation
+        const animate = () => {
+            const dx = mouseX - posX;
+            const dy = mouseY - posY;
 
-      requestAnimationFrame(animate);
-    };
-    animate();
+            posX += dx * 0.15;
+            posY += dy * 0.15;
 
-    // Magnetic effect
-    const elements = document.querySelectorAll("a, button");
+            velocity = Math.sqrt(dx * dx + dy * dy);
 
-    elements.forEach((el) => {
-      el.addEventListener("mousemove", (e) => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
+            // Circle
+            circle.style.left = `${posX}px`;
+            circle.style.top = `${posY}px`;
 
-        circle.style.left = rect.left + rect.width / 2 + x * 0.3 + "px";
-        circle.style.top = rect.top + rect.height / 2 + y * 0.3 + "px";
+            // Dot
+            dot.style.left = `${mouseX}px`;
+            dot.style.top = `${mouseY}px`;
 
-        circle.style.transform = "translate(-50%, -50%) scale(2.2)";
-        circle.style.background = "rgba(0,140,255,0.2)";
-      });
+            // Scale
+            const scale = Math.min(
+                1 + velocity / 100,
+                2
+            );
 
-      el.addEventListener("mouseleave", () => {
-        circle.style.transform = "translate(-50%, -50%) scale(1)";
-        circle.style.background = "rgba(0,140,255,0.08)";
-      });
-    });
+            circle.style.transform = `translate(-50%, -50%) scale(${scale})`;
 
-    // Shockwave ripple
-    const clickEffect = (e) => {
-      const ripple = document.createElement("span");
-      ripple.className = "shockwave";
+            requestAnimationFrame(animate);
+        };
 
-      ripple.style.left = e.clientX + "px";
-      ripple.style.top = e.clientY + "px";
+        animate();
 
-      document.body.appendChild(ripple);
+        // Magnetic hover
+        const elements =
+            document.querySelectorAll("a, button");
 
-      setTimeout(() => ripple.remove(), 800);
-    };
+        elements.forEach((el) => {
+            const handleMouseMove = (
+                e: Event
+            ) => {
+                const mouseEvent =
+                    e as MouseEvent;
 
-    document.addEventListener("click", clickEffect);
+                const rect =
+                    el.getBoundingClientRect();
 
-    return () => {
-      document.removeEventListener("mousemove", move);
-      document.removeEventListener("click", clickEffect);
-    };
-  }, []);
+                const x =
+                    mouseEvent.clientX -
+                    rect.left -
+                    rect.width / 2;
 
-  return (
-    <>
-      <div className="cursor-dot"></div>
-      <div className="cursor-circle"></div>
+                const y =
+                    mouseEvent.clientY -
+                    rect.top -
+                    rect.height / 2;
 
-      <style>{`
-        body {
-          cursor: auto;
-        }
+                circle.style.left = `${
+                    rect.left +
+                    rect.width / 2 +
+                    x * 0.3
+                }px`;
 
-        /* Dot */
-        .cursor-dot {
-          width: 6px;
-          height: 6px;
-          background: #1e90ff;
-          border-radius: 50%;
-          position: fixed;
-          pointer-events: none;
-          z-index: 9999;
-          transform: translate(-50%, -50%);
-          box-shadow: 0 0 12px #1e90ff;
-        }
+                circle.style.top = `${
+                    rect.top +
+                    rect.height / 2 +
+                    y * 0.3
+                }px`;
 
-        /* Circle */
-        .cursor-circle {
-          width: 50px;
-          height: 50px;
-          position: fixed;
-          pointer-events: none;
-          z-index: 9998;
-          border-radius: 50%;
+                circle.style.transform =
+                    "translate(-50%, -50%) scale(2.2)";
 
-          background: rgba(0,140,255,0.08);
-          border: 1px solid rgba(0,140,255,0.4);
+                circle.style.background =
+                    "rgba(0,140,255,0.2)";
+            };
 
-          backdrop-filter: blur(14px);
+            const handleMouseLeave = () => {
+                circle.style.transform =
+                    "translate(-50%, -50%) scale(1)";
 
-          transform: translate(-50%, -50%);
-          transition: background 0.2s ease;
+                circle.style.background =
+                    "rgba(0,140,255,0.08)";
+            };
 
-          box-shadow:
-            0 0 15px rgba(0,140,255,0.4),
-            0 0 40px rgba(0,140,255,0.2);
-        }
+            el.addEventListener(
+                "mousemove",
+                handleMouseMove
+            );
 
-        /* Shockwave */
-        .shockwave {
-          position: fixed;
-          width: 60px;
-          height: 60px;
-          border: 2px solid #1e90ff;
-          border-radius: 50%;
-          pointer-events: none;
-          transform: translate(-50%, -50%) scale(0.5);
-          animation: shock 0.8s ease-out;
-          z-index: 9997;
-        }
+            el.addEventListener(
+                "mouseleave",
+                handleMouseLeave
+            );
+        });
 
-        @keyframes shock {
-          to {
-            transform: translate(-50%, -50%) scale(4);
-            opacity: 0;
-          }
-        }
+        // Ripple effect
+        const clickEffect = (
+            e: MouseEvent
+        ) => {
+            const ripple =
+                document.createElement("span");
 
-        /* Mobile off */
-        @media (max-width: 768px) {
-          .cursor-dot,
-          .cursor-circle,
-          .shockwave {
-            display: none;
-          }
-        }
-      `}</style>
-    </>
-  );
+            ripple.className = "shockwave";
+
+            ripple.style.left = `${e.clientX}px`;
+            ripple.style.top = `${e.clientY}px`;
+
+            document.body.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 800);
+        };
+
+        document.addEventListener(
+            "click",
+            clickEffect
+        );
+
+        return () => {
+            document.removeEventListener(
+                "mousemove",
+                move
+            );
+
+            document.removeEventListener(
+                "click",
+                clickEffect
+            );
+        };
+    }, []);
+
+    return (
+        <>
+            <div className="cursor-dot" />
+
+            <div className="cursor-circle" />
+
+            <style jsx global>{`
+                body {
+                    cursor: auto;
+                }
+
+                .cursor-dot {
+                    width: 6px;
+                    height: 6px;
+                    background: #1e90ff;
+                    border-radius: 50%;
+                    position: fixed;
+                    pointer-events: none;
+                    z-index: 9999;
+                    transform: translate(-50%, -50%);
+                    box-shadow: 0 0 12px #1e90ff;
+                }
+
+                .cursor-circle {
+                    width: 50px;
+                    height: 50px;
+                    position: fixed;
+                    pointer-events: none;
+                    z-index: 9998;
+                    border-radius: 50%;
+
+                    background: rgba(0, 140, 255, 0.08);
+
+                    border: 1px solid
+                        rgba(0, 140, 255, 0.4);
+
+                    backdrop-filter: blur(14px);
+
+                    transform: translate(
+                        -50%,
+                        -50%
+                    );
+
+                    transition: background 0.2s ease;
+
+                    box-shadow:
+                        0 0 15px
+                            rgba(0, 140, 255, 0.4),
+                        0 0 40px
+                            rgba(0, 140, 255, 0.2);
+                }
+
+                .shockwave {
+                    position: fixed;
+
+                    width: 60px;
+                    height: 60px;
+
+                    border: 2px solid #1e90ff;
+
+                    border-radius: 50%;
+
+                    pointer-events: none;
+
+                    transform: translate(
+                            -50%,
+                            -50%
+                        )
+                        scale(0.5);
+
+                    animation: shock 0.8s ease-out;
+
+                    z-index: 9997;
+                }
+
+                @keyframes shock {
+                    to {
+                        transform: translate(
+                                -50%,
+                                -50%
+                            )
+                            scale(4);
+
+                        opacity: 0;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .cursor-dot,
+                    .cursor-circle,
+                    .shockwave {
+                        display: none;
+                    }
+                }
+            `}</style>
+        </>
+    );
 }

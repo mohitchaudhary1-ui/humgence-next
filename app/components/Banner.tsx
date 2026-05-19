@@ -1,9 +1,16 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 export default function Banner() {
-    const container = {
+    const easing: [number, number, number, number] = [
+        0.16,
+        1,
+        0.3,
+        1,
+    ];
+
+    const container: Variants = {
         off: {},
 
         on: {
@@ -13,7 +20,7 @@ export default function Banner() {
         },
     };
 
-    const item = {
+    const item: Variants = {
         off: {
             opacity: 0,
             y: 40,
@@ -25,7 +32,7 @@ export default function Banner() {
 
             transition: {
                 duration: 0.9,
-                ease: [0.16, 1, 0.3, 1],
+                ease: easing,
             },
         },
     };

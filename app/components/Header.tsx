@@ -1,67 +1,134 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {  useLocation } from "react-router-dom";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+declare global {
+    interface Window {
+        dataLayer: unknown[];
+
+        fbq: {
+            (...args: unknown[]): void;
+
+            queue?: unknown[];
+
+            loaded?: boolean;
+
+            version?: string;
+
+            callMethod?: (
+                ...args: unknown[]
+            ) => void;
+        };
+
+        _fbq: typeof window.fbq;
+    }
+}
 export default function Header() {
     const [loading, setLoading] = useState(true);
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    const { pathname } = usePathname();
+    const pathname = usePathname();
 // Reset loader when pathname changes (navigation)
     useEffect(() => {
         setLoading(true);
     }, [pathname]);
 
     // Google Tag Manager Script Injection
-    useEffect(() => {
-        const gtmId = 'GTM-N9R32SJ6';
+    // Google Tag Manager
+useEffect(() => {
+    const gtmId = "GTM-N9R32SJ6";
 
-        // Check if GTM is already loaded to prevent duplicates
-        if (!window.dataLayer) {
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', gtmId);
-        }
-    }, []);
+    if (window.dataLayer) return;
+
+    window.dataLayer = [];
+
+    window.dataLayer.push({
+        "gtm.start": new Date().getTime(),
+        event: "gtm.js",
+    });
+
+    const script =
+        document.createElement("script");
+
+    script.async = true;
+
+    script.src = `https://www.googletagmanager.com/gtm.js?id=${gtmId}`;
+
+    document.head.appendChild(script);
+}, []);
     // Meta Pixel Script Injection
-    useEffect(() => {
-        const pixelId = '1309300884362611';
+   // Facebook Pixel
+useEffect(() => {
+    const pixelId = "1309300884362611";
 
-        // Inject Script
-        if (!window.fbq) {
-            !function (f, b, e, v, n, t, s) {
-                if (f.fbq) return; n = f.fbq = function () {
-                    n.callMethod ?
-                        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-                };
-                if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
-                n.queue = []; t = b.createElement(e); t.async = !0;
-                t.src = v; s = b.getElementsByTagName(e)[0];
-                s.parentNode.insertBefore(t, s)
-            }(window, document, 'script',
-                'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', pixelId);
-            fbq('track', 'PageView');
+    // Prevent duplicate loading
+    if (typeof window.fbq === "function") return;
+    const fbq = function (
+        ...args: unknown[]
+    ) {
+        if (fbq.callMethod) {
+            fbq.callMethod(...args);
+        } else {
+            fbq.queue?.push(args);
         }
+    } as Window["fbq"];
 
-        // Inject Noscript Fallback to Head
-        if (!document.getElementById('fb-pixel-noscript')) {
-            const noscript = document.createElement('noscript');
-            noscript.id = 'fb-pixel-noscript';
-            noscript.innerHTML = `<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1" />`;
-            document.head.appendChild(noscript);
-        }
-    }, []);
+    fbq.queue = [];
+
+    fbq.loaded = true;
+
+    fbq.version = "2.0";
+
+    window.fbq = fbq;
+
+    window._fbq = fbq;
+
+    // Inject script
+    const script =
+        document.createElement("script");
+
+    script.async = true;
+
+    script.src =
+        "https://connect.facebook.net/en_US/fbevents.js";
+
+    document.head.appendChild(script);
+
+    // Init pixel
+    window.fbq("init", pixelId);
+
+    window.fbq("track", "PageView");
+
+    // Noscript fallback
+    if (
+        !document.getElementById(
+            "fb-pixel-noscript"
+        )
+    ) {
+        const noscript =
+            document.createElement(
+                "noscript"
+            );
+
+        noscript.id =
+            "fb-pixel-noscript";
+
+        noscript.innerHTML = `
+            <img
+                height="1"
+                width="1"
+                style="display:none"
+                src="https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1"
+            />
+        `;
+
+        document.head.appendChild(
+            noscript
+        );
+    }
+}, []);
 
     useEffect(() => {
         const timer = setTimeout(() => setLoading(false), 1000);
@@ -79,24 +146,37 @@ export default function Header() {
             window.removeEventListener("scroll", handleScroll);
         };
     }, [isOpen, pathname]);
-
+const easing: [number, number, number, number] = [
+    0.16,
+    1,
+    0.3,
+    1,
+];
     const menuVariants = {
         closed: { opacity: 0, y: "-100%" },
         open: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+            transition: { duration: 0.6, ease: easing }
         }
     };
 
-    const linkVariants = {
-        closed: { opacity: 0, x: -20 },
-        open: (i) => ({
-            opacity: 1,
-            x: 0,
-            transition: { delay: 0.3 + i * 0.1, duration: 0.5 }
-        })
-    };
+    const linkVariants: Variants = {
+    closed: {
+        opacity: 0,
+        x: -20,
+    },
+
+    open: (i: number) => ({
+        opacity: 1,
+        x: 0,
+
+        transition: {
+            delay: 0.3 + i * 0.1,
+            duration: 0.5,
+        },
+    }),
+};
 
     if (loading) return (
         <div className="fixed inset-0 bg-[#0a0f1a] flex flex-col items-center justify-center z-[100]">

@@ -1,16 +1,46 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 export default function Work() {
-    const fUp = {
-        off: { opacity: 0, y: 50 },
-        on: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+    const easing: [
+        number,
+        number,
+        number,
+        number
+    ] = [0.16, 1, 0.3, 1];
+     const fUp: Variants = {
+        off: {
+            opacity: 0,
+            y: 50,
+        },
+
+        on: {
+            opacity: 1,
+            y: 0,
+
+            transition: {
+                duration: 0.8,
+                ease: easing,
+            },
+        },
     };
 
-    const fLeft = {
-        off: { opacity: 0, x: -80 },
-        on: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } }
+      const fLeft: Variants = {
+        off: {
+            opacity: 0,
+            x: -80,
+        },
+
+        on: {
+            opacity: 1,
+            x: 0,
+
+            transition: {
+                duration: 0.8,
+                ease: easing,
+            },
+        },
     };
 
     const view = { once: false, amount: 0.2 };

@@ -1,3 +1,4 @@
+"use client";
 export default function Whatsapp() {
   const phoneNumber = "917508400002"; // 👉 Replace with your number
   const message = "Hi, I want to know more about your services";

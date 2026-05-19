@@ -56,13 +56,14 @@ export const metadata: Metadata = {
         title: "Humgence",
         description:
             "Premium digital creative studio.",
-        images: ["/og-image.jpg"],
+        images: ["/banner.webp"],
     },
 
     robots: {
         index: true,
         follow: true,
     },
+    // local seo
 };
 
 export default function RootLayout({

@@ -5,7 +5,9 @@ export const metadata: Metadata = {
     title: "About Us - Humgence",
     description:
         "Discover Humgence: a full-service digital marketing agency dedicated to driving measurable growth through strategy, creativity, and technology.",
-
+    alternates: {
+        canonical: "https://humgence.com/about",
+    },
     keywords: [
         "Humgence",
         "Digital Marketing Agency",

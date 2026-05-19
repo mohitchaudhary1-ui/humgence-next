@@ -28,6 +28,9 @@ export const metadata: Metadata = {
 
   description:
     "Humgence builds digital ecosystems, branding systems, modern websites, and scalable digital experiences.",
+  alternates:{
+    canonical: "https://humgence.com",
+  },
 
   keywords: [
     "Humgence",

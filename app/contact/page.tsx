@@ -2,26 +2,17 @@ import type { Metadata } from "next";
 import ContactPage from "../components/ContactPage";
 
 export const metadata: Metadata = {
-    title: "Contact | Humgence",
+  title: "Contact Humgence | Digital Agency in Ludhiana & Dubai",
+  description:
+    "Get in touch with Humgence. SCO 140, Firoz Gandhi Market, Ludhiana, Punjab 141001. AlKazim Tower, Dubai Internet City. Call +91 7508400002.",
+  alternates: { canonical: "https://humgence.com/contact" },
+  openGraph: {
+    title: "Contact Humgence | Ludhiana & Dubai",
     description:
-        "Get in touch with Humgence for digital marketing, branding, website development, SEO, and growth solutions.",
-    alternates: {
-        canonical: "https://humgence.com/contact",
-    },
-        keywords: [
-        "Humgence",
-        "Contact",
-        "Digital Marketing",
-        "Branding",
-        "Website Development",
-        "SEO",
-        "Growth Solutions",
-    ],
-
-    robots: {
-        index: true,
-        follow: true,
-    },
+      "Reach us in Ludhiana or Dubai. Call +91 7508400002 or email info@humgence.com.",
+    url: "https://humgence.com/contact",
+    images: [{ url: "/banner.webp", width: 1200, height: 630 }],
+  },
 };
 
 export default function Page() {

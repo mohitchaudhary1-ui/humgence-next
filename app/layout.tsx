@@ -22,32 +22,20 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://humgence.com"),
 
   title: {
-    default: "Humgence | Digital Creative Studio",
-    template: "%s | Humgence",
+    default: "Digital Agency in Ludhiana & Dubai | Branding, Web & AI — Humgence",
+    template: "%s — Humgence",
   },
 
   description:
-    "Humgence builds digital ecosystems, branding systems, modern websites, and scalable digital experiences.",
-  alternates:{
+    "Humgence is a full-service digital agency in Ludhiana & Dubai — branding, web development, social media & AI automation for 50+ brands across India and the UAE.",
+
+  alternates: {
     canonical: "https://humgence.com",
   },
 
-  keywords: [
-    "Humgence",
-    "Digital Agency",
-    "Creative Studio",
-    "Web Development",
-    "Branding",
-    "SEO",
-    "UI UX",
-  ],
-
-  authors: [{ name: "Humgence" }],
-
+  authors: [{ name: "Humgence", url: "https://humgence.com" }],
   creator: "Humgence",
-
   publisher: "Humgence",
-
   applicationName: "Humgence",
 
   robots: {
@@ -62,37 +50,29 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Humgence",
+    title: "Humgence — Digital Agency | Branding, Web & AI",
     description:
-      "We build premium digital systems and experiences.",
-
+      "We build brands into global digital experiences — branding, web development, social media & AI automation. 10+ years, 50+ clients across India and UAE.",
     url: "https://humgence.com",
-
     siteName: "Humgence",
-
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Humgence",
+        alt: "Humgence — Digital Agency India & UAE",
       },
     ],
-
-    locale: "en_US",
-
+    locale: "en_IN",
     type: "website",
   },
 
   twitter: {
     card: "summary_large_image",
-
-    title: "Humgence",
-
+    title: "Humgence — Digital Agency | Branding, Web & AI",
     description:
-      "Premium digital creative studio.",
-
-    images: ["/og-image.jpg"],
+      "Branding, web development, social media & AI automation for 50+ brands across India and UAE.",
+    images: ["/banner.webp"],
   },
 };
 

@@ -181,7 +181,7 @@ const easing: [number, number, number, number] = [
     if (loading) return (
         <div className="fixed inset-0 bg-[#0a0f1a] flex flex-col items-center justify-center z-[100]">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col items-center">
-                <img src="./logo.png" alt="logo" className="w-16 sm:w-24 animate-pulse" />
+                <img src="/logo.png" alt="logo" className="w-16 sm:w-24 animate-pulse" />
                 <span className="mt-6 text-xl tracking-[0.4em] font-black text-white uppercase">HUMGENCE</span>
             </motion.div>
         </div>

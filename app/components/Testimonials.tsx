@@ -8,30 +8,35 @@ const testimonials = [
         agency: "N Square Marketing",
         videoSrc: "/testimonials/ashok_arora_n_square_marketing.MP4",
         thumbnail: "/testimonials/thumbnails/ashok_arora.webp",
+        quote: "Humgence's expertise in digital marketing and branding has been instrumental in our growth. Their innovative strategies and dedicated team have consistently delivered outstanding results, making them an invaluable partner in our success."
     },
     {
         name: "Harbans Sekhon",
         agency: "Nirvana Club",
         videoSrc: "/testimonials/harbans_sekhon_nirvana.MP4",
         thumbnail: "/testimonials/thumbnails/harbans_sekhon.webp",
+        quote: "Working with Humgence has been a game-changer for our brand. Their creative approach to digital marketing and branding has helped us reach new heights. The team's professionalism and commitment to excellence have made them an essential part of our journey."
     },
     {
         name: "Shivani Gupta",
         agency: "BNI",
         videoSrc: "/testimonials/shivani_gupta_bni.MP4",
         thumbnail: "/testimonials/thumbnails/shivani_gupta.webp",
+        quote: "Humgence's innovative digital marketing strategies and exceptional branding services have significantly boosted our brand's visibility and engagement. Their team's dedication and expertise have made them an indispensable partner in our growth journey."
     },
     {
         name: "Sachin Vidya",
         agency: "Vidya Wings",
         videoSrc: "/testimonials/sachin_vidya_wings.MP4",
         thumbnail: "/testimonials/thumbnails/sachin_vw.webp",
+        quote: "Humgence's expertise in digital marketing and branding has been instrumental in our growth. Their innovative strategies and dedicated team have consistently delivered outstanding results, making them an invaluable partner in our success."
     },
     {
         name: "Rishi Khosla",
         agency: "Rakshi Khosa and Associations",
         videoSrc: "/testimonials/rishi_khosla_rakshit_khosla_and_assisiates.MP4",
         thumbnail: "/testimonials/thumbnails/rakshit_khosla.webp",
+        quote: "Humgence's innovative digital marketing strategies and exceptional branding services have significantly boosted our brand's visibility and engagement. Their team's dedication and expertise have made them an indispensable partner in our growth journey."
     }
 ];
 
@@ -150,6 +155,14 @@ export default function VideoSlider() {
                                             <div className="w-2 h-2 bg-[#56c0db] rounded-full animate-pulse" />
                                         </div>
                                     </div>
+                                </div>
+                                <div className="px-2 py-2">
+                                    <p className="text-slate-500 text-sm leading-relaxed italic border-l-2 border-[#56c0db] pl-4">
+                                        {item?.quote}
+                                    </p>
+                                    <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-2 pl-4">
+                                        — {item.name}, {item.agency}
+                                    </p>
                                 </div>
                             </motion.div>
                         ))}

@@ -12,6 +12,7 @@ export const metadata: Metadata = {
       "Social media, brand consulting, web development & AI automation. Full-service digital agency in India & UAE.",
     url: "https://humgence.com/services",
     images: [{ url: "/banner.webp", width: 1200, height: 630 }],
+    locale: "en_IN",
   },
 };
 

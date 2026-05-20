@@ -14,6 +14,7 @@ export const metadata: Metadata = {
       "60+ brands across hospitality, retail, healthcare and real estate in India and UAE.",
     url: "https://humgence.com/clients",
     images: [{ url: "/banner.webp", width: 1200, height: 630 }],
+    locale: "en_IN",
   },
 };
 export default function ClientsPage() {

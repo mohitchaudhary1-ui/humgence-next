@@ -193,7 +193,7 @@ const easing: [number, number, number, number] = [
             <header className={`fixed top-0 left-0 z-[100] w-full transition-all duration-500 px-6 lg:px-12 py-4 bg-black/80 backdrop-blur-md`}>
                 <div className="max-w-7xl mx-auto flex justify-between items-center text-white">
                     <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center font-black text-xl tracking-tighter uppercase relative z-[110]">
-                        <img src="./logo.png" alt="logo" className="w-8 md:w-10 mr-3" />
+                        <img src="/logo.png" alt="logo" className="w-8 md:w-10 mr-3" />
                         <span className="xs:block">HUM<span className="text-[#56c0db]">GENCE</span></span>
                     </Link>
 
@@ -236,6 +236,7 @@ const easing: [number, number, number, number] = [
                                 {[
                                     { label: "Home", path: "/" },
                                     { label: "About", path: "/about" },
+                                    { label: "Blog", path: "/blog" },
                                     { label: "Advisory Board", path: "/advisory-board" },
                                     { label: "Services", path: "/services" },
                                     { label: "Team", path: "/team" },

@@ -117,7 +117,7 @@ export default function AboutComponent() {
 
                         <div className="p-6 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10">
                             <h4 className="text-3xl font-black text-white">
-                                50+
+                                71+
                             </h4>
 
                             <p className="text-xs uppercase tracking-widest text-white/70 mt-2">

@@ -12,6 +12,7 @@ export const metadata: Metadata = {
       "Reach us in Ludhiana or Dubai. Call +91 7508400002 or email info@humgence.com.",
     url: "https://humgence.com/contact",
     images: [{ url: "/banner.webp", width: 1200, height: 630 }],
+      locale: "en_IN",
   },
 };
 

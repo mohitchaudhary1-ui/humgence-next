@@ -9,9 +9,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Our Team — Humgence Digital Agency",
     description:
-      "The creative minds behind 50+ brand transformations across India and UAE.",
+      "The creative minds behind 71+ brand transformations across India and UAE.",
     url: "https://humgence.com/team",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630 }],
+    locale: "en_IN",
   },
 };
 export default function PerfectTeamGrid() {

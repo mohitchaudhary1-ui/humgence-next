@@ -1,54 +1,92 @@
 import { MetadataRoute } from "next";
+import { getBlogs } from "@/lib/notion";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-    return [
-        {
-            url: "https://humgence.com",
-            lastModified: new Date(),
-            changeFrequency: "weekly",
-            priority: 1,
-        },
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
-        {
-            url: "https://humgence.com/about",
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.8,
-            
-        },
-        {
-            url: "https://humgence.com/advisory-board",
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.8,
-        },
+  // Fetch blogs
+  const blogs: any = await getBlogs();
 
-        {
-            url: "https://humgence.com/services",
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.9,
-        },
+  // Dynamic blog URLs
+  const blogUrls = blogs.map((blog: any) => {
+    const slug =
+      blog.properties.Slug?.rich_text?.[0]
+        ?.plain_text || "";
 
-        {
-            url: "https://humgence.com/team",
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.7,
-        },
+    const date =
+      blog.properties.Date?.date?.start;
 
-        {
-            url: "https://humgence.com/clients",
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.7,
-        },
+    return {
+      url: `https://humgence.com/blog/${slug}`,
 
-        {
-            url: "https://humgence.com/contact",
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.8,
-        },
-    ];
+      lastModified: date
+        ? new Date(date)
+        : new Date(),
+
+      changeFrequency: "weekly" as const,
+
+      priority: 0.7,
+    };
+  });
+
+  // Static pages
+  const routes: MetadataRoute.Sitemap = [
+    {
+      url: "https://humgence.com",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 1,
+    },
+
+    {
+      url: "https://humgence.com/about",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+
+    {
+      url: "https://humgence.com/blog",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+
+    {
+      url: "https://humgence.com/advisory-board",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+
+    {
+      url: "https://humgence.com/services",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+
+    {
+      url: "https://humgence.com/team",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+
+    {
+      url: "https://humgence.com/clients",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+
+    {
+      url: "https://humgence.com/contact",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+  ];
+
+  // Merge static + blogs
+  return [...routes, ...blogUrls];
 }

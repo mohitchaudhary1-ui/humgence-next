@@ -20,7 +20,7 @@ export async function getBlogs() {
 
         sorts: [
           {
-            property: "Date",
+            property: "PublishDate",
             direction: "descending",
           },
         ],

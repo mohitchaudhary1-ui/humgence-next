@@ -50,7 +50,7 @@ const Footer = () => {
                     className="inline-flex items-center text-2xl font-bold tracking-[-0.08em]"
                 >
                     <img
-                        src="./logo.png"
+                        src="/logo.png"
                         alt="logo"
                         className="w-10 mr-3"
                     />

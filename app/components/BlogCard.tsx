@@ -22,13 +22,25 @@ export default function BlogCard({
       <div className="group overflow-hidden rounded-3xl border border-neutral-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
         
         {cover && (
-          <div className="overflow-hidden">
-            <img
-              src={cover}
-              alt={title}
-              className="h-60 w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-          </div>
+          <div className="relative overflow-hidden rounded-[28px] bg-white">
+
+  <img
+    src={
+      cover ||
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+    }
+    alt={title}
+    className="
+      h-auto
+      w-full
+      object-contain
+
+      md:aspect-[16/9]
+      md:object-cover
+    "
+  />
+
+</div>
         )}
 
         <div className="p-6">

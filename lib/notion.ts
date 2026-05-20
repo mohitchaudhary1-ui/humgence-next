@@ -3,6 +3,7 @@ export async function getBlogs() {
     `https://api.notion.com/v1/databases/${process.env.NOTION_DATABASE_ID}/query`,
     {
       method: "POST",
+
       headers: {
         Authorization: `Bearer ${process.env.NOTION_TOKEN}`,
         "Notion-Version": "2022-06-28",
@@ -11,14 +12,30 @@ export async function getBlogs() {
 
       body: JSON.stringify({
         filter: {
-          property: "Status",
-          status: {
-            equals: "Published",
+          property: "Published",
+          checkbox: {
+            equals: true,
           },
         },
+
+        sorts: [
+          {
+            property: "Date",
+            direction: "descending",
+          },
+        ],
       }),
+
+      // IMPORTANT
+      cache: "no-store",
     }
   );
+
+  if (!response.ok) {
+    console.log(await response.text());
+
+    throw new Error("Failed to fetch blogs");
+  }
 
   const data = await response.json();
 
